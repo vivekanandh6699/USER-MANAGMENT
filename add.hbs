@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{#if editing}}Edit{{else}}Add{{/if}} Data</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <style>
+    body {
+      padding-top: 60px; /* Adjust the body padding for fixed navbar */
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="/">Home</a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/logout">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container mt-5">
+    <h1 class="text-center">{{#if editing}}Edit{{else}}Add{{/if}} Data</h1>
+
+    {{#if errors}}
+      <div class="alert alert-danger">
+        <ul>
+          {{#each errors}}
+            <li>{{msg}}</li>
+          {{/each}}
+        </ul>
+      </div>
+    {{/if}}
+
+    {{#if error}}
+      <p class="text-danger">{{error}}</p>
+    {{/if}}
+
+    <form action="{{#if editing}}/edit/{{user.id}}{{else}}/add{{/if}}" method="POST">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" class="form-control" id="name" name="name" value="{{#if editing}}{{user.name}}{{/if}}" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" class="form-control" id="email" name="email" value="{{#if editing}}{{user.email}}{{/if}}" required>
+      </div>
+
+      <div class="form-group">
+        <label for="number">Number:</label>
+        <input type="text" class="form-control" id="number" name="number" value="{{#if editing}}{{user.number}}{{/if}}" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary">{{#if editing}}Update{{else}}Add{{/if}}</button>
+    </form>
+  </div>
+
+  <!-- Bootstrap JS and Popper.js -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
